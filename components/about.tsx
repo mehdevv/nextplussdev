@@ -68,7 +68,7 @@ export default function About() {
                 <div className="relative w-full aspect-[4/3] max-w-md mx-auto lg:mx-0">
                   <div className="relative w-full h-full overflow-hidden transition-transform duration-500 hover:scale-105">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/screencapture-plussdev-netlify-app-2025-06-13-21_12_46-PP3d5ANrDN2EBCPK8WBhi2EaAvSPq8.png"
+                      src="https://i.ibb.co/1tGXykKL/generation-7721c8ed-6d53-40cf-bae0-66a399917c90.png"
                       alt="Developer workspace"
                       fill
                       className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"

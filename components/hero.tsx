@@ -84,13 +84,15 @@ export default function Hero() {
             transition={{ delay: 0.8, duration: 0.5 }}
           >
             <Button
+             
               size="lg"
               className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 px-8 py-6 text-base font-medium rounded-none border-0 transition-all duration-200 hover:scale-105"
               asChild
             >
+                              
               <a
-                href="https://linktr.ee/pluss.dev"
-                target="_blank"
+                href="#portfolio"
+                target="_self"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-3"
               >

@@ -5,10 +5,10 @@ import { LanguageProvider } from "@/contexts/language-context"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "pluss.dev - Full-stack Web Developer",
+  title: "pluss.dev - web solutions agency",
   description:
-    "Full-stack web developer & E-commerce stores realizer. Creating gorgeous and functional websites with modern technologies.",
-    generator: 'v0.dev'
+    "Full-stack web development agency,we create gorgeous and functional websites with modern technologies suitable for your needs.",
+    generator: 'kernou mehdi'
 }
 
 export default function RootLayout({

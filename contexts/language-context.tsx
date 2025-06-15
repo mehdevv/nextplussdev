@@ -23,7 +23,7 @@ const translations = {
     // Hero
     "hero.typing": "web solutions with ",
     "hero.subtitle": "Full-stack web developer & E-commerce stores realizer",
-    "hero.cta": "Explore My Work",
+    "hero.cta": "Explore our Work",
 
     // About
     "about.title": "About Me",
