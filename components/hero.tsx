@@ -45,7 +45,7 @@ export default function Hero() {
           >
             <div className="relative w-20 h-20 md:w-24 md:h-24 transition-transform duration-300 hover:scale-105">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pluss-ee3a94sgm7Whruyss4K6dP0pYH9qL7.png"
+                src="/logo.png"
                 alt="pluss.dev logo"
                 fill
                 className="object-contain"
