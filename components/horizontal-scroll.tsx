@@ -99,40 +99,6 @@ export function HorizontalScroll({ children, className = "" }: HorizontalScrollP
 
   return (
     <div className="relative group">
-      {/* Left Arrow - Hidden on mobile */}
-      {!isMobile && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full transition-all duration-200 ${
-            canScrollLeft
-              ? "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 shadow-sm opacity-0 group-hover:opacity-100"
-              : "opacity-0 cursor-not-allowed"
-          }`}
-          onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </Button>
-      )}
-
-      {/* Right Arrow - Hidden on mobile */}
-      {!isMobile && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full transition-all duration-200 ${
-            canScrollRight
-              ? "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 shadow-sm opacity-0 group-hover:opacity-100"
-              : "opacity-0 cursor-not-allowed"
-          }`}
-          onClick={() => scroll("right")}
-          disabled={!canScrollRight}
-        >
-          <ChevronRight className="w-4 h-4" />
-        </Button>
-      )}
-
       {/* Scrollable Content */}
       <div
         ref={scrollRef}
@@ -152,6 +118,27 @@ export function HorizontalScroll({ children, className = "" }: HorizontalScrollP
         }}
       >
         {children}
+      </div>
+      {/* Bottom navigation arrows */}
+      <div className="flex justify-center items-center gap-4 mt-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          className={`w-8 h-8 rounded-full transition-all duration-200 ${canScrollLeft ? "opacity-100" : "opacity-50 cursor-not-allowed"}`}
+          onClick={() => scroll("left")}
+          disabled={!canScrollLeft}
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className={`w-8 h-8 rounded-full transition-all duration-200 ${canScrollRight ? "opacity-100" : "opacity-50 cursor-not-allowed"}`}
+          onClick={() => scroll("right")}
+          disabled={!canScrollRight}
+        >
+          <ChevronRight className="w-4 h-4" />
+        </Button>
       </div>
     </div>
   )

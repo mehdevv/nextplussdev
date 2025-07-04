@@ -4,7 +4,7 @@ import type React from "react"
 
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Phone, Mail, MapPin, Send, CheckCircle, Clock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { useLanguage } from "@/contexts/language-context"
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const ref = useRef(null)
@@ -22,9 +23,21 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    phone: "",
+    company: "",
     message: "",
+    selectedPack: "",
   })
+
+  // Check for selected pack from localStorage (set by packs page)
+  useEffect(() => {
+    const selectedPack = localStorage.getItem("selectedPack")
+    if (selectedPack) {
+      setFormData(prev => ({ ...prev, selectedPack }))
+      // Clear localStorage after reading
+      localStorage.removeItem("selectedPack")
+    }
+  }, [])
 
   const contactInfo = [
     {
@@ -54,17 +67,42 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    // MailJS credentials
+    const serviceId = 'service_e5gfubt'
+    const templateId = 'template_37jepbs'
+    const publicKey = 'FQFfUge6tZbYpTtvE'
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || 'Not provided',
+      company: formData.company || 'Not provided',
+      message: formData.message,
+      time: new Date().toLocaleString(),
+    }
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: "", email: "", subject: "", message: "" })
-    }, 3000)
+    try {
+      await emailjs.send(serviceId, templateId, templateParams, publicKey)
+
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({ name: "", email: "", phone: "", company: "", message: "", selectedPack: "" })
+      }, 3000)
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      console.error('Error details:', {
+        serviceId,
+        templateId,
+        publicKey,
+        templateParams
+      })
+      setIsSubmitting(false)
+      alert(`Failed to send message: ${error.message || 'Unknown error'}. Please check console for details.`)
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -243,23 +281,61 @@ export default function Contact() {
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                          transition={{ duration: 0.4, delay: 0.8 }}
+                          transition={{ duration: 0.4, delay: 0.75 }}
                         >
                           <Label
-                            htmlFor="subject"
+                            htmlFor="phone"
                             className="text-black dark:text-white font-medium transition-colors duration-500"
                           >
-                            {t("contact.subject")}
+                            Phone Number
                           </Label>
                           <Input
-                            id="subject"
-                            name="subject"
-                            value={formData.subject}
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            value={formData.phone}
                             onChange={handleInputChange}
-                            required
                             className="mt-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white focus:border-blue-500 focus:ring-blue-500 transition-all duration-300"
                           />
                         </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                          transition={{ duration: 0.4, delay: 0.8 }}
+                        >
+                          <Label
+                            htmlFor="company"
+                            className="text-black dark:text-white font-medium transition-colors duration-500"
+                          >
+                            Company
+                          </Label>
+                          <Input
+                            id="company"
+                            name="company"
+                            value={formData.company}
+                            onChange={handleInputChange}
+                            className="mt-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white focus:border-blue-500 focus:ring-blue-500 transition-all duration-300"
+                          />
+                        </motion.div>
+
+                        {formData.selectedPack && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            transition={{ duration: 0.4, delay: 0.7 }}
+                            className="p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg"
+                          >
+                            <Label className="text-blue-700 dark:text-blue-300 font-medium text-sm">
+                              Selected Package
+                            </Label>
+                            <p className="text-blue-600 dark:text-blue-400 text-sm mt-1">
+                              {formData.selectedPack}
+                            </p>
+                          </motion.div>
+                        )}
+
+
 
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}

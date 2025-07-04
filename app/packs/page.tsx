@@ -28,8 +28,9 @@ export default function PacksPage() {
       icon: Eye,
       title: t("packs.visibility.title"),
       subtitle: t("packs.visibility.subtitle"),
-      price: "$299",
-      originalPrice: "$399",
+      price: "16,000 - 24,000 DZD",
+      originalPrice: "",
+      maintenance: "6,000 DZD/quarter",
       popular: false,
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pack1.png-tWONPCNZXEXDP6eg1YBUdvaPRAl8gd.jpeg",
       features: [
@@ -51,8 +52,9 @@ export default function PacksPage() {
       icon: Grid3X3,
       title: t("packs.management.title"),
       subtitle: t("packs.management.subtitle"),
-      price: "$599",
-      originalPrice: "$799",
+      price: "26,000 - 36,000 DZD",
+      originalPrice: "",
+      maintenance: "9,000 DZD/quarter",
       popular: true,
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pack2.png-yyu78dLqN8WkvJGoy1HWbCydWlsUjr.jpeg",
       features: [
@@ -74,8 +76,9 @@ export default function PacksPage() {
       icon: Rocket,
       title: t("packs.innovative.title"),
       subtitle: t("packs.innovative.subtitle"),
-      price: "$999",
-      originalPrice: "$1299",
+      price: "Custom Price",
+      originalPrice: "",
+      maintenance: "Custom",
       popular: false,
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pack3.png-oK2qgdbchic6jWetkbJi0D4oJe9q9L.jpeg",
       features: [
@@ -88,7 +91,7 @@ export default function PacksPage() {
         t("packs.innovative.feature7"),
         t("packs.innovative.feature8"),
       ],
-      deliveryTime: t("packs.delivery.premium"),
+      deliveryTime: "1-1.5 months",
       revisions: t("packs.revisions.unlimited"),
       support: t("packs.support.dedicated"),
     },
@@ -196,8 +199,17 @@ export default function PacksPage() {
                           <span className="text-2xl font-light text-black dark:text-white transition-colors duration-300">
                             {pack.price}
                           </span>
-                          <span className="text-base text-gray-400 line-through">{pack.originalPrice}</span>
+                          {pack.originalPrice && (
+                            <span className="text-base text-gray-400 line-through">{pack.originalPrice}</span>
+                          )}
                         </div>
+                        {pack.maintenance && (
+                          <div className="mb-2">
+                            <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+                              Maintenance: {pack.maintenance}
+                            </span>
+                          </div>
+                        )}
                         <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300 line-clamp-2">
                           {pack.subtitle}
                         </p>
