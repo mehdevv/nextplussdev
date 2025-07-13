@@ -31,11 +31,18 @@ export default function Navbar() {
   }, [])
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-      setIsOpen(false)
-    }
+    setIsOpen(false);
+    // Wait for the menu to close and DOM to update (works best on real mobile browsers)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          const yOffset = -80; // Adjust for your navbar height if needed
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      });
+    });
   }
 
   const navItems = [
