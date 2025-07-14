@@ -1,16 +1,9 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "redirects": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "plussdev.vercel.app"
-        }
-      ],
-      "destination": "https://pluss.dev/:1",
-      "permanent": true
+      "src": "next.config.mjs",
+      "use": "@vercel/next"
     }
   ]
 }
