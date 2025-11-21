@@ -47,15 +47,15 @@ const translations = {
     // Services
     "services.title": "Services",
     "services.learnMore": "Learn More",
-    "services.web.title": "Web Design & Landing Pages",
-    "services.web.description":
-      "Modern, responsive web design and high-converting landing pages that engage your audience.",
-    "services.ecommerce.title": "Custom & Shopify Stores",
-    "services.ecommerce.description":
-      "Professional e-commerce solutions with custom design and Shopify integration for your business needs.",
-    "services.cards.title": "Virtual Visit Cards",
-    "services.cards.description":
-      "Digital business cards that make a lasting impression and help you network effectively.",
+    "services.webdev.title": "Web Development",
+    "services.webdev.description":
+      "Full-stack web development services building modern, scalable, and high-performance websites and applications using cutting-edge technologies.",
+    "services.webdesign.title": "Web Design",
+    "services.webdesign.description":
+      "Creative and modern web design services that create visually stunning, user-friendly interfaces that engage your audience and convert visitors into customers.",
+    "services.aiautomation.title": "AI Automation",
+    "services.aiautomation.description":
+      "Intelligent automation solutions powered by AI to streamline workflows, enhance productivity, and automate repetitive tasks for your business.",
 
     // Portfolio
     "portfolio.title": "Portfolio",
@@ -197,15 +197,15 @@ const translations = {
     // Services
     "services.title": "Services",
     "services.learnMore": "En Savoir Plus",
-    "services.web.title": "Design Web & Pages d'Atterrissage",
-    "services.web.description":
-      "Design web moderne et réactif et pages d'atterrissage à forte conversion qui engagent votre audience.",
-    "services.ecommerce.title": "Boutiques Personnalisées & Shopify",
-    "services.ecommerce.description":
-      "Solutions e-commerce professionnelles avec design personnalisé et intégration Shopify pour vos besoins d'entreprise.",
-    "services.cards.title": "Cartes de Visite Virtuelles",
-    "services.cards.description":
-      "Cartes de visite numériques qui laissent une impression durable et vous aident à réseauter efficacement.",
+    "services.webdev.title": "Développement Web",
+    "services.webdev.description":
+      "Services de développement web full-stack créant des sites web et applications modernes, évolutifs et performants utilisant des technologies de pointe.",
+    "services.webdesign.title": "Design Web",
+    "services.webdesign.description":
+      "Services de design web créatifs et modernes qui créent des interfaces visuellement époustouflantes et conviviales qui engagent votre audience et convertissent les visiteurs en clients.",
+    "services.aiautomation.title": "Automatisation IA",
+    "services.aiautomation.description":
+      "Solutions d'automatisation intelligentes alimentées par l'IA pour rationaliser les workflows, améliorer la productivité et automatiser les tâches répétitives pour votre entreprise.",
 
     // Portfolio
     "portfolio.title": "Portfolio",

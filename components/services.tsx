@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { ShoppingBag, Globe, CreditCard } from "lucide-react"
+import { Code, Palette, Zap } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { HorizontalScroll } from "@/components/horizontal-scroll"
@@ -17,22 +17,22 @@ export default function Services() {
 
   const services = [
     {
-      icon: ShoppingBag,
-      title: t("services.ecommerce.title"),
-      description: t("services.ecommerce.description"),
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/shops-QNqVqghHdpWIGTRCucFWAZ6GLR6U53.png",
-    },
-    {
-      icon: Globe,
-      title: t("services.web.title"),
-      description: t("services.web.description"),
+      icon: Code,
+      title: t("services.webdev.title"),
+      description: t("services.webdev.description"),
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LP-Ip2Y3kQFkykhMppv2NvRXDJZns2dd5.png",
     },
     {
-      icon: CreditCard,
-      title: t("services.cards.title"),
-      description: t("services.cards.description"),
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/QRS-CmvA1FcC3NtdI5qDXjcrD6aodUzWL7.png",
+      icon: Palette,
+      title: t("services.webdesign.title"),
+      description: t("services.webdesign.description"),
+      image: "/assets/webdesign.jpeg",
+    },
+    {
+      icon: Zap,
+      title: t("services.aiautomation.title"),
+      description: t("services.aiautomation.description"),
+      image: "/assets/aiautomation.png",
     },
   ]
 

@@ -4,7 +4,6 @@ import Hero from "@/components/hero"
 import About from "@/components/about"
 import Services from "@/components/services"
 import Portfolio from "@/components/portfolio"
-import Packs from "@/components/packs"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
 import VisitCard from "@/components/visit-card"
@@ -22,7 +21,6 @@ export default function Home() {
             <About />
             <Services />
             <Portfolio/>
-            <Packs />
             <Contact />
           </main>
           <Footer />

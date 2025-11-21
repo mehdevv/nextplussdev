@@ -42,7 +42,6 @@ export default function Navbar() {
     { key: t("nav.about"), href: "about" },
     { key: t("nav.services"), href: "services" },
     { key: t("nav.portfolio"), href: "portfolio" },
-    { key: t("nav.packs"), href: "packs" },
     { key: t("nav.contact"), href: "contact" },
   ]
 

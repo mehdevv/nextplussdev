@@ -111,7 +111,7 @@ export default function Hero() {
       {/* Arrow pointing to bottom right */}
       <motion.div
         style={{ opacity: arrowOpacity }}
-        className="arrow-container absolute bottom-12 right-30 z-20 pointer-events-none"
+        className="arrow-container absolute bottom-12 right-20 z-20 pointer-events-none"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}

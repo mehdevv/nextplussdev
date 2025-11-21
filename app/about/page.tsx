@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
 import Link from "next/link"
-import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 
 function AchievementItem({ 
@@ -32,7 +31,7 @@ function AchievementItem({
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
       transition={{ 
         duration: 0.5, 
-        delay: index * 0.08,
+        delay: 0.1,
         ease: [0.25, 0.46, 0.45, 0.94]
       }}
       whileHover={{ 
@@ -161,7 +160,7 @@ function AchievementsSection() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-black dark:text-white mb-4 tracking-tight">
@@ -175,14 +174,14 @@ function AchievementsSection() {
             key={category.category}
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 + categoryIndex * 0.1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             {categoryIndex > 0 && (
               <motion.div 
                 className="mb-12 pt-12 border-t border-gray-200 dark:border-gray-700"
                 initial={{ scaleX: 0 }}
                 animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 + categoryIndex * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
                 style={{ originX: 0 }}
               ></motion.div>
             )}
@@ -192,19 +191,12 @@ function AchievementsSection() {
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                 transition={{ 
                   duration: 0.6, 
-                  delay: 0.4 + categoryIndex * 0.1,
+                  delay: 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94]
                 }}
-                className="flex items-center space-x-4 mb-6"
+                className="flex items-center justify-center mb-6"
               >
-                <motion.div
-                  className="p-3 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/20 rounded-xl"
-                  whileHover={{ rotate: 5, scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <category.icon className="w-7 h-7 text-blue-500 dark:text-blue-400" />
-                </motion.div>
-                <h3 className="text-2xl md:text-3xl font-medium text-black dark:text-white">
+                <h3 className="text-2xl md:text-3xl font-medium text-black dark:text-white text-center">
                   {category.category}
                 </h3>
               </motion.div>
@@ -212,7 +204,7 @@ function AchievementsSection() {
                 className="grid md:grid-cols-2 gap-5"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 + categoryIndex * 0.1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
               >
                 {category.items.map((item, itemIndex) => (
                   <AchievementItem
@@ -247,7 +239,7 @@ function SkillsSection({ skills }: { skills: any[] }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-black dark:text-white mb-4 tracking-tight">
@@ -263,7 +255,7 @@ function SkillsSection({ skills }: { skills: any[] }) {
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
             transition={{ 
               duration: 0.5, 
-              delay: 0.3 + index * 0.1,
+              delay: 0.1,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
             whileHover={{ 
@@ -292,7 +284,7 @@ function SkillsSection({ skills }: { skills: any[] }) {
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                   transition={{ 
                     duration: 0.3, 
-                    delay: 0.4 + index * 0.1 + itemIndex * 0.05 
+                    delay: 0.1 
                   }}
                   whileHover={{ scale: 1.1, y: -2 }}
                   className="px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 cursor-default shadow-sm hover:shadow-md"
@@ -344,7 +336,7 @@ function CTASection({ t }: { t: (key: string) => string }) {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-light text-black dark:text-white mb-4"
           >
             {t("about.connect")}
@@ -352,7 +344,7 @@ function CTASection({ t }: { t: (key: string) => string }) {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto text-lg"
           >
             Have a project in mind? Let's work together to bring your ideas to life.
@@ -360,7 +352,7 @@ function CTASection({ t }: { t: (key: string) => string }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Link href="/#contact">
               <Button
@@ -432,8 +424,7 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      <Navbar />
-      <main className="pt-24">
+      <main className="pt-8">
         {/* Main Content */}
         <section className="pt-8 pb-16 md:pt-12 md:pb-24">
           <div className="container mx-auto px-6">
@@ -460,7 +451,7 @@ export default function AboutPage() {
                 <motion.div
                   initial={{ opacity: 0, x: -40 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
                   className="space-y-12"
                 >
                   {/* Profile Image */}
@@ -487,7 +478,7 @@ export default function AboutPage() {
                 <motion.div
                   initial={{ opacity: 0, x: 40 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
                   className="space-y-8"
                 >
                   {/* Bio */}
@@ -538,7 +529,7 @@ export default function AboutPage() {
                     className="flex justify-center lg:justify-start space-x-6 pt-6"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
                   >
                     {socialLinks.map((social, index) => (
                       <motion.a
@@ -548,7 +539,7 @@ export default function AboutPage() {
                         rel="noopener noreferrer"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
                         className="w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all duration-300 group"
                         aria-label={social.label}
                       >

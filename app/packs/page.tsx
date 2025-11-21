@@ -28,9 +28,9 @@ export default function PacksPage() {
       icon: Eye,
       title: t("packs.visibility.title"),
       subtitle: t("packs.visibility.subtitle"),
-      price: "16,000 - 24,000 DZD",
+      price: "Custom",
       originalPrice: "",
-      maintenance: "6,000 DZD/quarter",
+      maintenance: "Custom",
       popular: false,
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pack1.png-tWONPCNZXEXDP6eg1YBUdvaPRAl8gd.jpeg",
       features: [
@@ -52,9 +52,9 @@ export default function PacksPage() {
       icon: Grid3X3,
       title: t("packs.management.title"),
       subtitle: t("packs.management.subtitle"),
-      price: "26,000 - 36,000 DZD",
+      price: "Custom",
       originalPrice: "",
-      maintenance: "9,000 DZD/quarter",
+      maintenance: "Custom",
       popular: true,
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pack2.png-yyu78dLqN8WkvJGoy1HWbCydWlsUjr.jpeg",
       features: [
@@ -193,23 +193,8 @@ export default function PacksPage() {
                         </div>
                       </div>
 
-                      {/* Pricing */}
+                      {/* Pricing - Hidden */}
                       <div className="mb-4 flex-shrink-0">
-                        <div className="flex items-baseline space-x-2 mb-2">
-                          <span className="text-2xl font-light text-black dark:text-white transition-colors duration-300">
-                            {pack.price}
-                          </span>
-                          {pack.originalPrice && (
-                            <span className="text-base text-gray-400 line-through">{pack.originalPrice}</span>
-                          )}
-                        </div>
-                        {pack.maintenance && (
-                          <div className="mb-2">
-                            <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">
-                              Maintenance: {pack.maintenance}
-                            </span>
-                          </div>
-                        )}
                         <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300 line-clamp-2">
                           {pack.subtitle}
                         </p>
