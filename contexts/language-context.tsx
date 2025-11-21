@@ -35,13 +35,13 @@ const translations = {
     "about.intro": "Hello, I'm",
     "about.name": "Mehdi Kernou",
     "about.description1":
-      "a passionate web developer with expertise in creating gorgeous and functional websites and E-commerce shops.",
-    "about.description2": "With experience in both",
+      "a full-stack web developer with strong expertise in building modern, scalable, and high-performance websites and applications.",
+    "about.description2": "I handle both",
     "about.skills": "front-end and back-end development",
-    "about.description3": "I bring ideas to life through clean code and modern design principles.",
-    "about.approach": "My approach combines",
-    "about.values": "technical excellence with creative problem-solving and excellent communication",
-    "about.commitment": "for client satisfaction, ensuring that every project not only meets but exceeds expectations.",
+    "about.description3": "delivering clean architectures, precise interfaces, and secure, maintainable systems using tools like React, Tailwind, Firebase, Node.js, MongoDB, and more.",
+    "about.approach": "I also integrate Figma, Blender, and n8n to design sharp interfaces, create advanced visuals, and automate workflows",
+    "about.values": "",
+    "about.commitment": "— ensuring every project is efficient, polished, and ready to scale.",
     "about.connect": "Let's Connect",
 
     // Services
@@ -152,7 +152,7 @@ const translations = {
     "contact.successMessage": "Thank you for reaching out. I'll get back to you soon.",
 
     // Visit Card
-    "visitCard.title": "Full-stack Developer",
+    "visitCard.title": "web dev • UI/UX • AI automation",
     "visitCard.call": "CALL",
     "visitCard.email": "EMAIL",
     "visitCard.mobile": "Mobile",
@@ -185,14 +185,13 @@ const translations = {
     "about.intro": "Bonjour, je suis",
     "about.name": "Mehdi Kernou",
     "about.description1":
-      "un développeur web passionné avec une expertise dans la création de sites web et boutiques e-commerce magnifiques et fonctionnels.",
-    "about.description2": "Avec de l'expérience en",
+      "un développeur web full-stack avec une solide expertise dans la création de sites web et d'applications modernes, évolutives et performantes.",
+    "about.description2": "Je gère à la fois le",
     "about.skills": "développement front-end et back-end",
-    "about.description3": "je donne vie aux idées grâce à un code propre et des principes de conception modernes.",
-    "about.approach": "Mon approche combine",
-    "about.values": "l'excellence technique avec la résolution créative de problèmes et une excellente communication",
-    "about.commitment":
-      "pour la satisfaction du client, garantissant que chaque projet non seulement répond mais dépasse les attentes.",
+    "about.description3": "en livrant des architectures propres, des interfaces précises et des systèmes sécurisés et maintenables utilisant des outils comme React, Tailwind, Firebase, Node.js, MongoDB, et plus encore.",
+    "about.approach": "J'intègre également Figma, Blender et n8n pour concevoir des interfaces nettes, créer des visuels avancés et automatiser les workflows",
+    "about.values": "",
+    "about.commitment": "— garantissant que chaque projet est efficace, soigné et prêt à évoluer.",
     "about.connect": "Restons Connectés",
 
     // Services
@@ -305,7 +304,7 @@ const translations = {
     "contact.successMessage": "Merci de m'avoir contacté. Je vous répondrai bientôt.",
 
     // Visit Card
-    "visitCard.title": "Développeur Full-stack",
+    "visitCard.title": "web dev • UI/UX • AI automation",
     "visitCard.call": "APPELER",
     "visitCard.email": "EMAIL",
     "visitCard.mobile": "Mobile",

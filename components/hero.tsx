@@ -1,17 +1,27 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { useState, useEffect, useRef } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/contexts/language-context"
 import ModelViewer from "@/components/model-viewer"
+import Image from "next/image"
 
 export default function Hero() {
   const [typedText, setTypedText] = useState("")
   const { t } = useLanguage()
+  const { scrollY } = useScroll()
+  const sectionRef = useRef<HTMLElement>(null)
 
   const fullText = t("hero.typing")
+
+  // Fade arrow based on scroll position
+  const arrowOpacity = useTransform(
+    scrollY,
+    [0, 300],
+    [1, 0]
+  )
 
   useEffect(() => {
     let index = 0
@@ -28,7 +38,7 @@ export default function Hero() {
   }, [fullText])
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section ref={sectionRef} className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="container mx-auto text-center relative z-10 max-w-4xl px-6" style={{ marginTop: '-80px' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -97,6 +107,28 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Arrow pointing to bottom right */}
+      <motion.div
+        style={{ opacity: arrowOpacity }}
+        className="arrow-container absolute bottom-12 right-30 z-20 pointer-events-none"
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="arrow-inner relative w-24 h-24 md:w-32 md:h-32"
+          style={{ transform: 'rotate(45deg)' }}
+        >
+          <Image
+            src="/assets/arrow.png"
+            alt="Scroll indicator"
+            fill
+            className="object-contain"
+            priority={false}
+          />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

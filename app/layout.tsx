@@ -53,11 +53,13 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://i.ibb.co" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
         <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="preload" as="image" href="https://i.ibb.co/1tGXykKL/generation-7721c8ed-6d53-40cf-bae0-66a399917c90.png" />
         {/* Open Graph & Twitter Card fallback for non-Next crawlers */}
         <meta property="og:title" content="🚀 pluss.dev - Web Solutions Agency | Modern Websites & Apps" />
         <meta property="og:description" content="Full-stack web development agency in Algeria. We create gorgeous, fast, and functional websites & apps for your business. SEO, branding, e-commerce, and more!" />

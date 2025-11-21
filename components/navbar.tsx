@@ -73,7 +73,7 @@ export default function Navbar() {
           transition={{ duration: 0.3, ease: "easeOut" }}
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
             isScrolled
-              ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/20 dark:border-gray-800/20"
+              ? "bg-white/30 dark:bg-gray-900/30 backdrop-blur-2xl border-b border-white/20 dark:border-gray-800/30 shadow-lg shadow-black/5"
               : "bg-transparent"
           }`}
         >
@@ -127,7 +127,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg p-2 min-w-[120px]"
+                        className="absolute top-full right-0 mt-2 bg-white/40 dark:bg-gray-900/40 backdrop-blur-2xl border border-white/20 dark:border-gray-800/30 rounded-xl shadow-xl shadow-black/10 p-2 min-w-[120px]"
                       >
                         <button
                           onClick={() => handleLanguageChange("en")}
@@ -196,7 +196,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200/20 dark:border-gray-800/20"
+                  className="md:hidden bg-white/30 dark:bg-gray-900/30 backdrop-blur-2xl border-t border-white/20 dark:border-gray-800/30 shadow-lg shadow-black/5"
                 >
                   <div className="py-4 space-y-4">
                     {navItems.map((item, index) => (

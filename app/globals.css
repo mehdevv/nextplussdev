@@ -279,6 +279,32 @@ html, body {
   max-height: 192px;
 }
 
+/* Arrow Container - Responsive positioning and sizing */
+.arrow-container {
+  /* Mobile/Phone styling */
+  bottom: 3.5rem;
+  right: 5rem;
+}
+
+.arrow-inner {
+  /* Mobile/Phone size */
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Desktop/Tablet styling */
+@media (min-width: 768px) {
+  .arrow-container {
+    bottom: 3rem;
+    right: 5rem;
+  }
+  
+  .arrow-inner {
+    width: 8rem;
+    height: 8rem;
+  }
+}
+
 /* Tablet sizes */
 @media (min-width: 768px) {
   .model-container {

@@ -85,7 +85,7 @@ END:VCARD`
 
                     <div className="w-20 h-20 bg-white rounded-full mx-auto mb-4 overflow-hidden">
                       <Image
-                        src="/assets/me.jpg"
+                        src="/assets/mehdi.png"
                         alt="Mehdi Kernou"
                         width={80}
                         height={80}

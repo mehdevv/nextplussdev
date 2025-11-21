@@ -3,13 +3,15 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { Linkedin, Mail, Instagram, MapPin, Calendar } from "lucide-react"
+import { Linkedin, Mail, Instagram, MapPin, Calendar, ArrowRight } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function About() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
   const { t } = useLanguage()
 
   const socialLinks = [
@@ -54,7 +56,7 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="space-y-12"
             >
               {/* Profile Image */}
@@ -76,7 +78,7 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
               className="space-y-8"
             >
               {/* Bio */}
@@ -108,21 +110,26 @@ export default function About() {
                     {t("about.description3")}
                   </p>
                   <p>
-                    {t("about.approach")}{" "}
-                    <strong className="text-black dark:text-white hover:text-blue-500 hover:glow-blue transition-all duration-300 cursor-default">
-                      {t("about.values")}
-                    </strong>{" "}
-                    {t("about.commitment")}
+                    {t("about.approach")}
+                    {t("about.values") && (
+                      <>
+                        {" "}
+                        <strong className="text-black dark:text-white hover:text-blue-500 hover:glow-blue transition-all duration-300 cursor-default">
+                          {t("about.values")}
+                        </strong>
+                      </>
+                    )}
+                    {" "}{t("about.commitment")}
                   </p>
                 </div>
               </div>
 
-              {/* Social Links */}
+              {/* Social Links & About Button */}
               <motion.div
-                className="flex justify-center lg:justify-start space-x-6 pt-6"
+                className="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ duration: 0.4, delay: 0.25 }}
               >
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -132,13 +139,28 @@ export default function About() {
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
                     className="w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all duration-300 group"
                     aria-label={social.label}
                   >
                     <social.icon className="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
                   </motion.a>
                 ))}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.3, delay: 0.45 }}
+                >
+                  <Link href="/about">
+                    <Button
+                      variant="outline"
+                      className="h-12 px-6 border border-gray-200 dark:border-gray-800 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/20 text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-all duration-300 group"
+                    >
+                      Learn More
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    </Button>
+                  </Link>
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>
