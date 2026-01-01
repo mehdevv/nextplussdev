@@ -2,64 +2,55 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { Linkedin, Mail, Instagram, MapPin, Calendar, ArrowRight } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function About() {
   const ref = useRef(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const [imageVisible, setImageVisible] = useState(false)
+  const [textVisible, setTextVisible] = useState(false)
 
   useEffect(() => {
+    const imageObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setImageVisible(true)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    )
+
+    const textObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTextVisible(true)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    )
+
     if (imageRef.current) {
-      gsap.fromTo(
-        imageRef.current,
-        { x: -200, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: "top 80%",
-            end: "top 30%",
-            scrub: 1,
-          },
-        }
-      )
+      imageObserver.observe(imageRef.current)
     }
 
     if (textRef.current) {
-      gsap.fromTo(
-        textRef.current,
-        { x: 200, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 80%",
-            end: "top 30%",
-            scrub: 1,
-          },
-        }
-      )
+      textObserver.observe(textRef.current)
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      if (imageRef.current) imageObserver.unobserve(imageRef.current)
+      if (textRef.current) textObserver.unobserve(textRef.current)
     }
   }, [])
   const { t } = useLanguage()
@@ -105,7 +96,11 @@ export default function About() {
             {/* Left Column - Image and Stats */}
             <div
               ref={imageRef}
-              className="space-y-12"
+              className="space-y-12 transition-all duration-700 ease-out"
+              style={{
+                opacity: imageVisible ? 1 : 0,
+                transform: imageVisible ? "translateX(0)" : "translateX(-30px)",
+              }}
             >
               {/* Profile Image */}
               <div className="relative">
@@ -125,7 +120,11 @@ export default function About() {
             {/* Right Column - Content */}
             <div
               ref={textRef}
-              className="space-y-8"
+              className="space-y-8 transition-all duration-700 ease-out"
+              style={{
+                opacity: textVisible ? 1 : 0,
+                transform: textVisible ? "translateX(0)" : "translateX(30px)",
+              }}
             >
               {/* Bio */}
               <div className="space-y-6">
