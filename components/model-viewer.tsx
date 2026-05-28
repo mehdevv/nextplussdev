@@ -5,6 +5,17 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls, useGLTF, useProgress } from "@react-three/drei"
 import * as THREE from "three"
 
+function ModelFallback() {
+  return (
+    <div
+      className="flex h-full w-full items-center justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900"
+      aria-hidden
+    >
+      <span className="text-6xl font-light text-blue-500/80 select-none">{"{ }"}</span>
+    </div>
+  )
+}
+
 function LoadingBar({ isLoaded }: { isLoaded: boolean }) {
   const { progress } = useProgress()
   const [visible, setVisible] = useState(true)
@@ -105,14 +116,42 @@ function SceneContent({ modelPath, onModelLoaded }: { modelPath: string; onModel
 
 function ModelViewerInner({ modelPath }: { modelPath: string }) {
   const [isModelLoaded, setIsModelLoaded] = useState(false)
+  const [modelAvailable, setModelAvailable] = useState<boolean | null>(null)
   const handleModelLoaded = useCallback(() => setIsModelLoaded(true), [])
+  const modelUrl = encodeURI(modelPath)
 
   useEffect(() => {
-    useGLTF.preload(modelPath)
-  }, [modelPath])
+    let cancelled = false
+    fetch(modelUrl, { method: "HEAD" })
+      .then((response) => {
+        if (!cancelled) setModelAvailable(response.ok)
+      })
+      .catch(() => {
+        if (!cancelled) setModelAvailable(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [modelUrl])
+
+  useEffect(() => {
+    if (modelAvailable) useGLTF.preload(modelUrl)
+  }, [modelAvailable, modelUrl])
+
+  if (modelAvailable === false) {
+    return (
+      <div className="w-full h-full relative block min-h-[192px]">
+        <ModelFallback />
+      </div>
+    )
+  }
+
+  if (modelAvailable === null) {
+    return <div className="w-full min-h-[192px] animate-pulse rounded-sm bg-gray-100 dark:bg-gray-800" />
+  }
 
   return (
-    <div className="w-full h-full relative block">
+    <div className="w-full h-full relative block min-h-[192px]">
       <Canvas
         camera={{ position: [0, 0, 6], fov: 50 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
@@ -120,7 +159,7 @@ function ModelViewerInner({ modelPath }: { modelPath: string }) {
         className="w-full h-full block"
         style={{ width: "100%", height: "100%" }}
       >
-        <SceneContent modelPath={modelPath} onModelLoaded={handleModelLoaded} />
+        <SceneContent modelPath={modelUrl} onModelLoaded={handleModelLoaded} />
       </Canvas>
       <LoadingBar isLoaded={isModelLoaded} />
     </div>

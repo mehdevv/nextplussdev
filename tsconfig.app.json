@@ -34,6 +34,7 @@
     ".next",
     "app/layout.tsx",
     "components/ui/sidebar.tsx",
-    "components/ui/sheet.tsx"
+    "components/ui/sheet.tsx",
+    "components/ui/chart.tsx"
   ]
 }

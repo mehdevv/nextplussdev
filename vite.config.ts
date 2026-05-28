@@ -39,4 +39,22 @@ export default defineConfig({
       "@react-three/drei",
     ],
   },
+  build: {
+    chunkSizeWarningLimit: 2000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules/three") || id.includes("node_modules/@react-three")) {
+            return "three-vendor"
+          }
+          if (id.includes("node_modules/firebase")) {
+            return "firebase"
+          }
+          if (id.includes("node_modules/@heroui") || id.includes("node_modules/@react-aria")) {
+            return "ui-vendor"
+          }
+        },
+      },
+    },
+  },
 })

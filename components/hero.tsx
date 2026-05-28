@@ -8,7 +8,7 @@ import { useLanguage } from "@/contexts/language-context"
 import ModelViewer from "@/components/model-viewer"
 import Image from "next/image"
 
-const HERO_MODEL_PATH = "/models/blue curly braces 3d model.glb"
+const HERO_MODEL_PATH = "/models/blue-curly-braces.glb"
 
 const HeroModel = memo(function HeroModel() {
   return (
