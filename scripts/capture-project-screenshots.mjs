@@ -13,10 +13,7 @@ const PROJECTS = [
   { slug: "packmad", url: "https://packmadfgdfgdfg.vercel.app/" },
 ]
 
-const outDirs = [
-  path.resolve(__dirname, "../public/projects"),
-  path.resolve(__dirname, "../../pluss.dev website/public/projects"),
-]
+const outDirs = [path.resolve(__dirname, "../public/projects")]
 
 for (const dir of outDirs) {
   fs.mkdirSync(dir, { recursive: true })

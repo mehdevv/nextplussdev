@@ -5,13 +5,13 @@ const config: Config = {
   darkMode: ["class"],
   content: [
     "./index.html",
-    "./src/**/*.{ts,tsx}",
-    "../pluss.dev website/components/**/*.{ts,tsx}",
-    "../pluss.dev website/app/**/*.{ts,tsx}",
-    "../pluss.dev website/contexts/**/*.{ts,tsx}",
-    "../pluss.dev website/hooks/**/*.{ts,tsx}",
-    "../pluss.dev website/lib/**/*.{ts,tsx}",
-    "../pluss.dev website/data/**/*.{ts,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./contexts/**/*.{js,ts,jsx,tsx}",
+    "./hooks/**/*.{js,ts,jsx,tsx}",
+    "./lib/**/*.{js,ts,jsx,tsx}",
+    "./data/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   prefix: "",
@@ -122,4 +122,3 @@ const config: Config = {
 } satisfies Config
 
 export default config
-

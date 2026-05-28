@@ -14,20 +14,45 @@ type NextImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
 }
 
 const Image = React.forwardRef<HTMLImageElement, NextImageProps>(function Image(props, ref) {
-  const { fill, priority, quality, placeholder, blurDataURL, loader, unoptimized, ...imgProps } = props
+  const {
+    fill,
+    priority: _priority,
+    quality: _quality,
+    placeholder: _placeholder,
+    blurDataURL: _blurDataURL,
+    loader: _loader,
+    unoptimized: _unoptimized,
+    sizes: _sizes,
+    style,
+    className,
+    alt,
+    src,
+    ...rest
+  } = props
 
-  const style = fill
+  const imgStyle = fill
     ? {
         position: "absolute" as const,
         height: "100%",
         width: "100%",
         inset: 0,
-        objectFit: imgProps.style?.objectFit ?? "cover",
-        ...imgProps.style,
+        objectFit: (style as React.CSSProperties | undefined)?.objectFit ?? "cover",
+        ...style,
       }
-    : imgProps.style
+    : style
 
-  return <img ref={ref} {...imgProps} style={style} />
+  return (
+    <img
+      ref={ref}
+      src={src}
+      alt={alt}
+      className={className}
+      style={imgStyle}
+      loading={_priority ? "eager" : rest.loading}
+      decoding="async"
+      {...rest}
+    />
+  )
 })
 
 export default Image
