@@ -11,6 +11,12 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173).
 
+## Deploy
+
+Pushes to `main` on [github.com/mehdevv/nextplussdev](https://github.com/mehdevv/nextplussdev) should trigger a **Vercel** production build (`npm run build` → `dist/`).
+
+In the Vercel dashboard: link the repo, set **Production Branch** to `main`, and assign **pluss.dev** to this project.
+
 ## Scripts
 
 | Command | Description |
