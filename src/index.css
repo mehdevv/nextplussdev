@@ -276,9 +276,17 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
   /* Mobile/Phone - default size */
   max-width: 256px;
   max-height: 192px;
+}
+
+.model-viewer-touch {
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 
 /* Hero arrow → visit-card bubble (fixed bottom-6 right-6, w-14 h-14) */

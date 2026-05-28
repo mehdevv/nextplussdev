@@ -12,8 +12,8 @@ const HERO_MODEL_PATH = "/models/blue-curly-braces.glb"
 
 const HeroModel = memo(function HeroModel() {
   return (
-    <div className="flex justify-center mb-2 mt-4 md:mt-6">
-      <div className="model-container">
+    <div className="flex justify-center mb-2 mt-10 translate-y-3 md:mt-12 md:translate-y-4">
+      <div className="model-container" data-lenis-prevent>
         <ModelViewer modelPath={HERO_MODEL_PATH} />
       </div>
     </div>

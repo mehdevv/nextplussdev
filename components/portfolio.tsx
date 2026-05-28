@@ -16,6 +16,12 @@ const STICKY_STAGGER = 10
 /** Scroll room per project — user reads one card before the next stacks */
 const SLOT_HEIGHT_VH = 88
 const LAST_SLOT_HEIGHT_VH = 68
+const CARD_SCALE_MIN = 0.9
+const CARD_SCALE_MAX = 1
+/** Slightly stronger scale on small screens so the effect reads clearly */
+const CARD_SCALE_MIN_MOBILE = 0.86
+const MOBILE_SLOT_HEIGHT_VH = 92
+const MOBILE_LAST_SLOT_HEIGHT_VH = 72
 
 function ProjectCard({
   project,
@@ -106,7 +112,33 @@ function ProjectCard({
   )
 }
 
-function useStackDepthAnimation(stackRef: React.RefObject<HTMLDivElement | null>) {
+function scaleFromScrollProgress(progress: number, scaleMin = CARD_SCALE_MIN) {
+  if (progress <= 0.5) {
+    return gsap.utils.mapRange(0, 0.5, scaleMin, CARD_SCALE_MAX, progress)
+  }
+  return gsap.utils.mapRange(0.5, 1, CARD_SCALE_MAX, scaleMin, progress)
+}
+
+/** Scale + lift + fade tuned for vertical mobile scrolling */
+function mobileMotionFromProgress(progress: number) {
+  const scale = scaleFromScrollProgress(progress, CARD_SCALE_MIN_MOBILE)
+
+  if (progress <= 0.5) {
+    return {
+      scale,
+      y: gsap.utils.mapRange(0, 0.5, 40, 0, progress),
+      opacity: gsap.utils.mapRange(0, 0.5, 0.7, 1, progress),
+    }
+  }
+
+  return {
+    scale,
+    y: gsap.utils.mapRange(0.5, 1, 0, 32, progress),
+    opacity: gsap.utils.mapRange(0.5, 1, 1, 0.78, progress),
+  }
+}
+
+function usePortfolioCardScale(stackRef: React.RefObject<HTMLDivElement | null>) {
   useEffect(() => {
     const stack = stackRef.current
     if (!stack) return
@@ -120,38 +152,70 @@ function useStackDepthAnimation(stackRef: React.RefObject<HTMLDivElement | null>
       const cards = gsap.utils.toArray<HTMLElement>("[data-stack-card]", stack)
       const triggers: ScrollTrigger[] = []
 
-      cards.forEach((card, index) => {
-        if (index === 0) return
-
+      cards.forEach((card) => {
         const slot = card.closest<HTMLElement>("[data-stack-slot]")
         if (!slot) return
 
-        const tween = gsap.fromTo(
-          cards[index - 1],
-          { scale: 1, filter: "brightness(1)" },
-          {
-            scale: Math.max(0.9, 0.97 - (index - 1) * 0.012),
-            filter: "brightness(0.96)",
-            transformOrigin: "center top",
-            ease: "none",
-            scrollTrigger: {
-              trigger: slot,
-              start: "top bottom",
-              end: `top top+=${STICKY_BASE_TOP + index * STICKY_STAGGER}`,
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          },
-        )
+        gsap.set(card, { scale: CARD_SCALE_MIN, transformOrigin: "center top" })
 
-        if (tween.scrollTrigger) triggers.push(tween.scrollTrigger)
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: slot,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true,
+            onUpdate(self) {
+              gsap.set(card, { scale: scaleFromScrollProgress(self.progress) })
+            },
+          }),
+        )
       })
 
       requestAnimationFrame(() => ScrollTrigger.refresh())
 
       return () => {
         triggers.forEach((trigger) => trigger.kill())
-        gsap.set(cards, { clearProps: "transform,filter" })
+        gsap.set(cards, { clearProps: "scale,transform" })
+        ScrollTrigger.refresh()
+      }
+    })
+
+    mm.add("(max-width: 767px)", () => {
+      const cards = gsap.utils.toArray<HTMLElement>("[data-stack-card]", stack)
+      const triggers: ScrollTrigger[] = []
+
+      cards.forEach((card) => {
+        const slot = card.closest<HTMLElement>("[data-stack-slot]")
+        if (!slot) return
+
+        gsap.set(card, {
+          scale: CARD_SCALE_MIN_MOBILE,
+          y: 40,
+          opacity: 0.7,
+          transformOrigin: "center top",
+        })
+
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: slot,
+            start: "top 92%",
+            end: "bottom 8%",
+            scrub: 0.45,
+            invalidateOnRefresh: true,
+            onUpdate(self) {
+              const { scale, y, opacity } = mobileMotionFromProgress(self.progress)
+              gsap.set(card, { scale, y, opacity })
+            },
+          }),
+        )
+      })
+
+      requestAnimationFrame(() => ScrollTrigger.refresh())
+
+      return () => {
+        triggers.forEach((trigger) => trigger.kill())
+        gsap.set(cards, { clearProps: "scale,y,opacity,transform" })
         ScrollTrigger.refresh()
       }
     })
@@ -165,7 +229,7 @@ export default function Portfolio() {
   const projects = FEATURED_PROJECTS
   const stackRef = useRef<HTMLDivElement>(null)
 
-  useStackDepthAnimation(stackRef)
+  usePortfolioCardScale(stackRef)
 
   return (
     <section
@@ -184,20 +248,22 @@ export default function Portfolio() {
         {projects.map((project, index) => {
           const isLast = index === projects.length - 1
           const slotHeightVh = isLast ? LAST_SLOT_HEIGHT_VH : SLOT_HEIGHT_VH
+          const mobileSlotHeightVh = isLast ? MOBILE_LAST_SLOT_HEIGHT_VH : MOBILE_SLOT_HEIGHT_VH
 
           return (
             <div
               key={project.id}
               data-stack-slot
-              className="relative mb-8 md:mb-0 md:h-[var(--slot-height)]"
+              className="relative mb-8 min-h-[var(--mobile-slot-height)] md:mb-0 md:min-h-0 md:h-[var(--slot-height)]"
               style={{
                 zIndex: index + 1,
                 ["--slot-height" as string]: `${slotHeightVh}svh`,
+                ["--mobile-slot-height" as string]: `${mobileSlotHeightVh}svh`,
               }}
             >
               <div
                 data-stack-card
-                className="w-full md:sticky md:will-change-transform"
+                className="w-full will-change-transform md:sticky"
                 style={{
                   top: STICKY_BASE_TOP + index * STICKY_STAGGER,
                 }}

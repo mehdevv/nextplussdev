@@ -114,11 +114,32 @@ function SceneContent({ modelPath, onModelLoaded }: { modelPath: string; onModel
   )
 }
 
+/** Stop Lenis / page scroll while the user drags to rotate the model on touch devices */
+function useModelTouchScrollLock(containerRef: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (event.cancelable) event.preventDefault()
+    }
+
+    container.addEventListener("touchmove", onTouchMove, { passive: false })
+
+    return () => {
+      container.removeEventListener("touchmove", onTouchMove)
+    }
+  }, [containerRef])
+}
+
 function ModelViewerInner({ modelPath }: { modelPath: string }) {
   const [isModelLoaded, setIsModelLoaded] = useState(false)
   const [modelAvailable, setModelAvailable] = useState<boolean | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const handleModelLoaded = useCallback(() => setIsModelLoaded(true), [])
   const modelUrl = encodeURI(modelPath)
+
+  useModelTouchScrollLock(containerRef)
 
   useEffect(() => {
     let cancelled = false
@@ -138,26 +159,35 @@ function ModelViewerInner({ modelPath }: { modelPath: string }) {
     if (modelAvailable) useGLTF.preload(modelUrl)
   }, [modelAvailable, modelUrl])
 
+  const containerClassName =
+    "model-viewer-touch w-full h-full relative block min-h-[192px] touch-none select-none"
+
   if (modelAvailable === false) {
     return (
-      <div className="w-full h-full relative block min-h-[192px]">
+      <div ref={containerRef} className={containerClassName} data-lenis-prevent>
         <ModelFallback />
       </div>
     )
   }
 
   if (modelAvailable === null) {
-    return <div className="w-full min-h-[192px] animate-pulse rounded-sm bg-gray-100 dark:bg-gray-800" />
+    return (
+      <div
+        ref={containerRef}
+        className="w-full min-h-[192px] animate-pulse rounded-sm bg-gray-100 dark:bg-gray-800 touch-none"
+        data-lenis-prevent
+      />
+    )
   }
 
   return (
-    <div className="w-full h-full relative block min-h-[192px]">
+    <div ref={containerRef} className={containerClassName} data-lenis-prevent>
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 50 }}
+        camera={{ position: [0, -0.35, 6], fov: 50 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         dpr={[1, 2]}
-        className="w-full h-full block"
-        style={{ width: "100%", height: "100%" }}
+        className="w-full h-full block touch-none"
+        style={{ width: "100%", height: "100%", touchAction: "none" }}
       >
         <SceneContent modelPath={modelUrl} onModelLoaded={handleModelLoaded} />
       </Canvas>
