@@ -33,6 +33,8 @@ export default function TechStack() {
                     alt={tech.name}
                     width={56}
                     height={56}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
                     unoptimized={tech.logo.startsWith("http")}
                   />

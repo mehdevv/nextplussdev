@@ -1,9 +1,10 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import useEmblaCarousel from "embla-carousel-react"
 import { useLanguage } from "@/contexts/language-context"
+import { useInView } from "@/hooks/use-in-view"
 
 const FEATURED_INDEX = 1
 const AUTOPLAY_INTERVAL_MS = 3000
@@ -23,6 +24,8 @@ type AboutGalleryProps = {
 
 export default function AboutGallery({ priority = false, className = "" }: AboutGalleryProps) {
   const { t } = useLanguage()
+  const rootRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(rootRef, { rootMargin: "64px", threshold: 0.15 })
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     startIndex: FEATURED_INDEX,
@@ -55,7 +58,7 @@ export default function AboutGallery({ priority = false, className = "" }: About
   }, [emblaApi, onSelect])
 
   useEffect(() => {
-    if (!emblaApi) return
+    if (!emblaApi || !inView) return
 
     let intervalId: ReturnType<typeof setInterval>
 
@@ -79,10 +82,10 @@ export default function AboutGallery({ priority = false, className = "" }: About
       emblaApi.off("pointerDown", stopAutoplay)
       emblaApi.off("pointerUp", startAutoplay)
     }
-  }, [emblaApi])
+  }, [emblaApi, inView])
 
   return (
-    <div className={className}>
+    <div ref={rootRef} className={className}>
       <div
         ref={emblaRef}
         className="overflow-hidden cursor-grab active:cursor-grabbing select-none rounded-sm border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-800/50 shadow-minimal"
@@ -98,6 +101,7 @@ export default function AboutGallery({ priority = false, className = "" }: About
                   alt={img.alt}
                   fill
                   priority={priority && i === FEATURED_INDEX}
+                  loading={priority && i === FEATURED_INDEX ? "eager" : "lazy"}
                   draggable={false}
                   className={`pointer-events-none object-cover object-center transition-[filter,opacity] duration-500 ${
                     i === selectedIndex

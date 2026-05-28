@@ -105,9 +105,9 @@
   background-color: rgba(75, 85, 99, 0.8);
 }
 
-/* Smooth scrolling */
+/* Native scroll only — Lenis handles smoothing on desktop (see smooth-scroll.tsx) */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 /* Minimalist typography */
@@ -122,11 +122,7 @@ h6 {
   line-height: 1.2;
 }
 
-/* Global transitions - faster */
-* {
-  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease, transform 0.2s
-    ease;
-}
+/* No universal * transitions — they fight GSAP scroll transforms and hurt FPS */
 
 /* Enhanced focus states for accessibility */
 *:focus-visible {

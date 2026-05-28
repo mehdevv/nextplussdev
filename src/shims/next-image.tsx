@@ -48,7 +48,7 @@ const Image = React.forwardRef<HTMLImageElement, NextImageProps>(function Image(
       alt={alt}
       className={className}
       style={imgStyle}
-      loading={_priority ? "eager" : rest.loading}
+      loading={_priority ? "eager" : (rest.loading ?? "lazy")}
       decoding="async"
       {...rest}
     />

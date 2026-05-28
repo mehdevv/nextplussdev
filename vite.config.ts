@@ -50,6 +50,15 @@ export default defineConfig({
           if (id.includes("node_modules/firebase")) {
             return "firebase"
           }
+          if (id.includes("node_modules/gsap")) {
+            return "gsap"
+          }
+          if (id.includes("node_modules/framer-motion")) {
+            return "framer-motion"
+          }
+          if (id.includes("node_modules/lenis")) {
+            return "lenis"
+          }
           if (id.includes("node_modules/@heroui") || id.includes("node_modules/@react-aria")) {
             return "ui-vendor"
           }

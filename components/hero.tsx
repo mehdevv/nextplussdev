@@ -1,20 +1,40 @@
 "use client"
 
-import { useState, useEffect, useRef, memo } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useState, useEffect, useRef, memo, lazy, Suspense } from "react"
+import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/contexts/language-context"
-import ModelViewer from "@/components/model-viewer"
+import { useInView } from "@/hooks/use-in-view"
 import Image from "next/image"
 
 const HERO_MODEL_PATH = "/models/blue-curly-braces.glb"
 
-const HeroModel = memo(function HeroModel() {
+const ModelViewer = lazy(() => import("@/components/model-viewer"))
+
+function ModelPlaceholder() {
   return (
-    <div className="flex justify-center mb-2 mt-10 translate-y-3 md:mt-12 md:translate-y-4">
+    <div
+      className="w-full min-h-[192px] md:min-h-[240px] rounded-sm bg-gray-100 dark:bg-gray-800"
+      aria-hidden
+    />
+  )
+}
+
+const HeroModel = memo(function HeroModel() {
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const shouldLoad = useInView(wrapRef, { rootMargin: "160px", once: true })
+
+  return (
+    <div ref={wrapRef} className="flex justify-center mb-2 mt-10 translate-y-3 md:mt-12 md:translate-y-4">
       <div className="model-container" data-lenis-prevent>
-        <ModelViewer modelPath={HERO_MODEL_PATH} />
+        {shouldLoad ? (
+          <Suspense fallback={<ModelPlaceholder />}>
+            <ModelViewer modelPath={HERO_MODEL_PATH} />
+          </Suspense>
+        ) : (
+          <ModelPlaceholder />
+        )}
       </div>
     </div>
   )
@@ -22,18 +42,35 @@ const HeroModel = memo(function HeroModel() {
 
 export default function Hero() {
   const [typedText, setTypedText] = useState("")
+  const [arrowOpacity, setArrowOpacity] = useState(1)
   const { t } = useLanguage()
-  const { scrollY } = useScroll()
   const sectionRef = useRef<HTMLElement>(null)
 
   const fullText = t("hero.typing")
 
-  // Fade arrow based on scroll position
-  const arrowOpacity = useTransform(
-    scrollY,
-    [0, 300],
-    [1, 0]
-  )
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 767px)").matches) return
+
+    let raf = 0
+    const update = () => {
+      setArrowOpacity(Math.max(0, 1 - window.scrollY / 300))
+    }
+
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        update()
+      })
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true })
+    update()
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
 
   useEffect(() => {
     let index = 0
@@ -58,10 +95,8 @@ export default function Hero() {
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="space-y-6"
         >
-          {/* 3D model isolated from language-driven re-renders */}
           <HeroModel />
 
-          {/* Main Heading */}
           <div className="space-y-6">
             <motion.h1
               initial={{ opacity: 0 }}
@@ -84,7 +119,6 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -110,8 +144,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Curved arrow — tip aligns with the visit-card bubble (fixed bottom-right) */}
-      <motion.div
+      <div
         style={{ opacity: arrowOpacity }}
         className="hero-scroll-arrow pointer-events-none hidden md:block"
         aria-hidden="true"
@@ -122,10 +155,10 @@ export default function Hero() {
             alt=""
             fill
             className="object-contain object-bottom object-right"
-            priority={false}
+            loading="lazy"
           />
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

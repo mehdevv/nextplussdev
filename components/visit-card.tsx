@@ -56,11 +56,11 @@ END:VCARD`
         isOpen={isOpen}
         onOpenChange={setIsOpen}
         placement="center"
-        backdrop="blur"
+        backdrop="opaque"
         scrollBehavior="inside"
         classNames={{
           base: "max-w-sm",
-          backdrop: "bg-black/50 backdrop-blur-sm",
+          backdrop: "bg-black/60",
         }}
       >
         <ModalContent>
