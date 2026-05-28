@@ -20,8 +20,8 @@ const CARD_SCALE_MIN = 0.9
 const CARD_SCALE_MAX = 1
 /** Slightly stronger scale on small screens so the effect reads clearly */
 const CARD_SCALE_MIN_MOBILE = 0.86
-const MOBILE_SLOT_HEIGHT_VH = 78
-const MOBILE_LAST_SLOT_HEIGHT_VH = 62
+const MOBILE_SLOT_HEIGHT_VH = 92
+const MOBILE_LAST_SLOT_HEIGHT_VH = 72
 
 function ProjectCard({
   project,
@@ -120,20 +120,22 @@ function scaleFromScrollProgress(progress: number, scaleMin = CARD_SCALE_MIN) {
   return gsap.utils.mapRange(0.5, 1, CARD_SCALE_MAX, scaleMin, progress)
 }
 
-/** Transform-only on mobile (opacity is costly while scrolling). */
+/** Scale + lift + fade for mobile project cards */
 function mobileMotionFromProgress(progress: number) {
   const scale = scaleFromScrollProgress(progress, CARD_SCALE_MIN_MOBILE)
 
   if (progress <= 0.5) {
     return {
       scale,
-      y: gsap.utils.mapRange(0, 0.5, 32, 0, progress),
+      y: gsap.utils.mapRange(0, 0.5, 40, 0, progress),
+      opacity: gsap.utils.mapRange(0, 0.5, 0.7, 1, progress),
     }
   }
 
   return {
     scale,
-    y: gsap.utils.mapRange(0.5, 1, 0, 24, progress),
+    y: gsap.utils.mapRange(0.5, 1, 0, 32, progress),
+    opacity: gsap.utils.mapRange(0.5, 1, 1, 0.78, progress),
   }
 }
 
@@ -155,18 +157,27 @@ function usePortfolioCardScale(stackRef: React.RefObject<HTMLDivElement | null>)
         const slot = card.closest<HTMLElement>("[data-stack-slot]")
         if (!slot) return
 
-        gsap.set(card, { scale: CARD_SCALE_MIN, transformOrigin: "center top" })
-        const setScale = gsap.quickSetter(card, "scale")
+        gsap.set(card, { scale: CARD_SCALE_MIN, transformOrigin: "center top", force3D: true })
 
         triggers.push(
           ScrollTrigger.create({
             trigger: slot,
             start: "top bottom",
             end: "bottom top",
-            scrub: 0.5,
+            scrub: true,
             invalidateOnRefresh: true,
             onUpdate(self) {
-              setScale(scaleFromScrollProgress(self.progress))
+              const progress = self.progress
+              const y =
+                progress <= 0.5
+                  ? gsap.utils.mapRange(0, 0.5, 16, 0, progress)
+                  : gsap.utils.mapRange(0.5, 1, 0, 12, progress)
+              gsap.set(card, {
+                scale: scaleFromScrollProgress(progress),
+                y,
+                transformOrigin: "center top",
+                force3D: true,
+              })
             },
           }),
         )
@@ -176,7 +187,7 @@ function usePortfolioCardScale(stackRef: React.RefObject<HTMLDivElement | null>)
 
       return () => {
         triggers.forEach((trigger) => trigger.kill())
-        gsap.set(cards, { clearProps: "scale,transform" })
+        gsap.set(cards, { clearProps: "scale,y,transform" })
         ScrollTrigger.refresh()
       }
     })
@@ -191,24 +202,22 @@ function usePortfolioCardScale(stackRef: React.RefObject<HTMLDivElement | null>)
 
         gsap.set(card, {
           scale: CARD_SCALE_MIN_MOBILE,
-          y: 32,
+          y: 40,
+          opacity: 0.7,
           transformOrigin: "center top",
+          force3D: true,
         })
-
-        const setScale = gsap.quickSetter(card, "scale")
-        const setY = gsap.quickSetter(card, "y", "px")
 
         triggers.push(
           ScrollTrigger.create({
             trigger: slot,
-            start: "top 90%",
-            end: "bottom 12%",
-            scrub: 0.6,
+            start: "top 92%",
+            end: "bottom 8%",
+            scrub: 0.45,
             invalidateOnRefresh: true,
             onUpdate(self) {
-              const { scale, y } = mobileMotionFromProgress(self.progress)
-              setScale(scale)
-              setY(y)
+              const { scale, y, opacity } = mobileMotionFromProgress(self.progress)
+              gsap.set(card, { scale, y, opacity, transformOrigin: "center top", force3D: true })
             },
           }),
         )
@@ -218,7 +227,7 @@ function usePortfolioCardScale(stackRef: React.RefObject<HTMLDivElement | null>)
 
       return () => {
         triggers.forEach((trigger) => trigger.kill())
-        gsap.set(cards, { clearProps: "scale,y,transform" })
+        gsap.set(cards, { clearProps: "scale,y,opacity,transform" })
         ScrollTrigger.refresh()
       }
     })
@@ -266,7 +275,7 @@ export default function Portfolio() {
             >
               <div
                 data-stack-card
-                className="w-full md:sticky"
+                className="w-full will-change-transform md:sticky"
                 style={{
                   top: STICKY_BASE_TOP + index * STICKY_STAGGER,
                 }}
