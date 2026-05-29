@@ -299,7 +299,7 @@ body {
   width: 3.75rem;
   height: 3.75rem;
   right: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 1.25rem);
-  bottom: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 0.25rem);
+  bottom: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 0.25rem - 5px);
   transform: translate(4%, 4%);
   transform-origin: 100% 100%;
 }
@@ -314,7 +314,7 @@ body {
     width: 4.75rem;
     height: 4.75rem;
     right: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 1.75rem);
-    bottom: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 0.75rem);
+    bottom: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 0.75rem - 5px);
     transform: translate(2%, 2%);
   }
 }
@@ -324,7 +324,7 @@ body {
     width: 5.25rem;
     height: 5.25rem;
     right: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 2rem);
-    bottom: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 1rem);
+    bottom: calc(var(--visit-bubble-inset) + var(--visit-bubble-size) / 2 + 1rem - 5px);
     transform: translate(0%, 0%);
   }
 }
