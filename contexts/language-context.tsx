@@ -59,6 +59,19 @@ const translations = {
       "National hackathon winner — INJAZ Headway, Business Road, Innobyte",
     "about.headline.tools": "UI/UX, workflow automation & rapid prototyping — Figma, n8n, AI",
 
+    // Directions
+    "directions.title": "Directions",
+    "directions.subtitle": "The ventures I am building beyond client work.",
+    "directions.dev.title": "pluss.dev",
+    "directions.dev.description":
+      "My development agency — the site you're on right now. Web apps, design, and automation for startups and businesses in Algeria and beyond.",
+    "directions.dev.badge": "Live",
+    "directions.dev.cta": "View services",
+    "directions.academy.title": "pluss.academy",
+    "directions.academy.description":
+      "Technical training and courses for developers — full-stack workshops and structured learning paths.",
+    "directions.soon": "Soon",
+
     // Tech stack
     "techStack.title": "Tech I Work With",
     "techStack.subtitle": "Tools and frameworks I use to build modern web apps, from UI to backend and automation.",
@@ -229,6 +242,19 @@ const translations = {
     "about.headline.hackathons":
       "Lauréat de hackathons nationaux — INJAZ Headway, Business Road, Innobyte",
     "about.headline.tools": "UI/UX, automatisation & prototypage rapide — Figma, n8n, IA",
+
+    // Directions
+    "directions.title": "Directions",
+    "directions.subtitle": "Les projets que je construis au-delà des missions clients.",
+    "directions.dev.title": "pluss.dev",
+    "directions.dev.description":
+      "Mon agence de développement — le site sur lequel vous êtes. Applications web, design et automatisation pour startups et entreprises en Algérie et à l'international.",
+    "directions.dev.badge": "En ligne",
+    "directions.dev.cta": "Voir les services",
+    "directions.academy.title": "pluss.academy",
+    "directions.academy.description":
+      "Formations techniques et parcours pour développeurs — workshops full-stack et apprentissage structuré.",
+    "directions.soon": "Bientôt",
 
     // Tech stack
     "techStack.title": "Technologies",

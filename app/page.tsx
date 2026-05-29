@@ -1,6 +1,7 @@
 "use client"
 import Hero from "@/components/hero"
 import About from "@/components/about"
+import Directions from "@/components/directions"
 import TechStack from "@/components/tech-stack"
 import Services from "@/components/services"
 import Portfolio from "@/components/portfolio"
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <Directions />
         <TechStack />
         <Portfolio />
         <Services />
