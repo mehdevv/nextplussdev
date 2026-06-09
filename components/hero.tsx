@@ -151,7 +151,7 @@ export default function Hero() {
       >
         <div className="hero-scroll-arrow__inner relative h-full w-full">
           <Image
-            src="/assets/arrow.png"
+            src="/assets/arrow.webp"
             alt=""
             fill
             className="object-contain object-bottom object-right"

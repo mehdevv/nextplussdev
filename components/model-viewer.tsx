@@ -6,6 +6,10 @@ import { OrbitControls, useGLTF, useProgress } from "@react-three/drei"
 import * as THREE from "three"
 import { useInView } from "@/hooks/use-in-view"
 
+// Draco-compressed models need a decoder. Use the official hosted decoder
+// (cached by the browser) so we don't bundle the wasm/js into our chunks.
+const DRACO_DECODER_PATH = "https://www.gstatic.com/draco/versioned/decoders/1.5.7/"
+
 function ModelFallback() {
   return (
     <div
@@ -60,7 +64,7 @@ function HighQualityModel({
   onLoaded: () => void
   active: boolean
 }) {
-  const { scene } = useGLTF(url)
+  const { scene } = useGLTF(url, DRACO_DECODER_PATH)
   const modelRef = useRef<THREE.Group>(null)
   const onLoadedRef = useRef(onLoaded)
   onLoadedRef.current = onLoaded
@@ -206,7 +210,7 @@ function ModelViewerInner({ modelPath }: { modelPath: string }) {
   }, [modelUrl])
 
   useEffect(() => {
-    if (modelAvailable && inView) useGLTF.preload(modelUrl)
+    if (modelAvailable && inView) useGLTF.preload(modelUrl, DRACO_DECODER_PATH)
   }, [modelAvailable, modelUrl, inView])
 
   const containerClassName =

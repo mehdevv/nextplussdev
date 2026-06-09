@@ -234,7 +234,7 @@ export default function AdminPage() {
                 {/* Image */}
                 <div className="relative aspect-video w-full overflow-hidden">
                   {card.image && (
-                    <img src={card.image} alt={card.title} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+                    <img src={card.image} alt={card.title} loading="lazy" decoding="async" className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
                   )}
                 </div>
                 {/* Content */}

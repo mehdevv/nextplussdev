@@ -21,7 +21,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: "Consulting",
     categoryFr: "Conseil",
     demoUrl: "https://aemconsulting.vercel.app/",
-    image: "/projects/aem-consulting.png",
+    image: "/projects/aem-consulting.webp",
     techs: ["Next.js", "React", "Tailwind CSS"],
   },
   {
@@ -33,7 +33,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: "SaaS",
     categoryFr: "SaaS",
     demoUrl: "https://scalecrm.vercel.app/login",
-    image: "/projects/scale-crm.png",
+    image: "/projects/scale-crm.webp",
     techs: ["React", "Node.js", "MongoDB"],
   },
   {
@@ -45,7 +45,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: "Landing Page",
     categoryFr: "Landing Page",
     demoUrl: "https://visacenter-landing-page.vercel.app/",
-    image: "/projects/visa-center.png",
+    image: "/projects/visa-center.webp",
     techs: ["Next.js", "Tailwind CSS"],
   },
   {
@@ -57,7 +57,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: "Corporate",
     categoryFr: "Corporate",
     demoUrl: "https://petrowest.vercel.app/",
-    image: "/projects/petro-west.png",
+    image: "/projects/petro-west.webp",
     techs: ["React", "Tailwind CSS"],
   },
   {
@@ -69,7 +69,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: "E-commerce",
     categoryFr: "E-commerce",
     demoUrl: "https://packmadfgdfgdfg.vercel.app/",
-    image: "/projects/packmad.png",
+    image: "/projects/packmad.webp",
     techs: ["Next.js", "React", "Supabase"],
   },
 ]

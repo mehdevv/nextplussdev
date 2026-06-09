@@ -10,11 +10,11 @@ const FEATURED_INDEX = 1
 const AUTOPLAY_INTERVAL_MS = 3000
 
 const PROFILE_IMAGES = [
-  { src: "/1.png", alt: "Mehdi Kernou — training session" },
-  { src: "/2.png", alt: "Mehdi Kernou — workshop" },
-  { src: "/3.jpg", alt: "Mehdi Kernou — media interview" },
-  { src: "/4.png", alt: "Mehdi Kernou — professional portrait" },
-  { src: "/5.png", alt: "Mehdi Kernou — speaking engagement" },
+  { src: "/1.webp", alt: "Mehdi Kernou — training session" },
+  { src: "/2.webp", alt: "Mehdi Kernou — workshop" },
+  { src: "/3.webp", alt: "Mehdi Kernou — media interview" },
+  { src: "/4.webp", alt: "Mehdi Kernou — professional portrait" },
+  { src: "/5.webp", alt: "Mehdi Kernou — speaking engagement" },
 ]
 
 type AboutGalleryProps = {

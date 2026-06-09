@@ -111,6 +111,7 @@ function ServiceCard({
                   height={14}
                   className="object-contain opacity-80"
                   loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     e.currentTarget.style.display = "none"
                   }}
@@ -194,7 +195,7 @@ export default function Services() {
       icon: Palette,
       title: t("services.webdesign.title"),
       description: t("services.webdesign.description"),
-      image: "/assets/webdesign.jpeg",
+      image: "/assets/webdesign.webp",
       accent: "#8b5cf6",
       techs: [
         { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" },
@@ -205,7 +206,7 @@ export default function Services() {
       icon: Zap,
       title: t("services.aiautomation.title"),
       description: t("services.aiautomation.description"),
-      image: "/assets/aiautomation.png",
+      image: "/assets/aiautomation.webp",
       accent: "#f59e0b",
       techs: [
         { name: "N8N", logo: "/tech-icons/n8n-icon.svg" },

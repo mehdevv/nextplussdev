@@ -40,7 +40,10 @@ export default defineConfig({
     ],
   },
   build: {
-    chunkSizeWarningLimit: 2000,
+    // Emit hashed build artifacts under /build so the public /assets images
+    // keep their stable paths and can have separate cache policies.
+    assetsDir: "build",
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
